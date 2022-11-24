@@ -21,6 +21,17 @@ import com.example.storage.service.util.ImageUtils;
 @Service
 public class StorageService {
 
+    /**
+     * Notes:
+     * - This code can be generalized to other files, not only images.
+     * - Validation such as checking if the file is empty must be included soon.
+     * - Also, name attribute must be unique. Otherwise, it will throw an exception.
+     * 
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
+
     public String uploadImageToDatabase(MultipartFile multipartFile) throws IOException {
         Image image = new Image();
 
@@ -38,9 +49,9 @@ public class StorageService {
     }
 
     public byte[] downloadImageFromDatabase(String fileName) {
-        Optional<Image> image = imageRepository.findByName(fileName);
+        Image image = imageRepository.findByName(fileName);
 
-        return ImageUtils.decompressImage(image.get().getImageData());
+        return ImageUtils.decompressImage(image.getImageData());
     }
 
     public String uploadImageToFileSystem(MultipartFile multipartFile) throws IOException {
@@ -64,9 +75,9 @@ public class StorageService {
     }
 
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
-        Optional<File> file = fileRepository.findByName(fileName);
+        File file = fileRepository.findByName(fileName);
 
-        String filePath = file.get().getFilePath();
+        String filePath = file.getFilePath();
 
         return Files.readAllBytes(new java.io.File(filePath).toPath());
     }
