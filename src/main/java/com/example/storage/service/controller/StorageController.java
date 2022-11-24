@@ -33,6 +33,21 @@ public class StorageController {
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
     }
 
+    @PostMapping("/file/system")
+    public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("image") MultipartFile multipartFile)
+            throws IOException {
+        String image = storageService.uploadImageToFileSystem(multipartFile);
+
+        return ResponseEntity.status(HttpStatus.OK).body(image);
+    }
+
+    @GetMapping("/file/system/{fileName}")
+    public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws IOException {
+        byte[] image = storageService.downloadImageFromFileSystem(fileName);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
+    }
+
     @Autowired
     private StorageService storageService;
 
