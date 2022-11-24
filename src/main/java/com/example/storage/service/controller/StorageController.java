@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.service.service.StorageService;
 
+/**
+ * @author Alexandre de Souza Jr.
+ */
 @RestController
 public class StorageController {
 

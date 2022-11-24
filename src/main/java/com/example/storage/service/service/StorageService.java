@@ -15,6 +15,9 @@ import com.example.storage.service.service.persistence.FileRepository;
 import com.example.storage.service.service.persistence.ImageRepository;
 import com.example.storage.service.util.ImageUtils;
 
+/**
+ * @author Alexandre de Souza Jr.
+ */
 @Service
 public class StorageService {
 

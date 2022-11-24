@@ -7,6 +7,9 @@ import java.util.zip.Inflater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Alexandre de Souza Jr.
+ */
 public class ImageUtils {
 
     public static byte[] compressImage(byte[] data) {

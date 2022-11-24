@@ -12,6 +12,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Alexandre de Souza Jr.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
