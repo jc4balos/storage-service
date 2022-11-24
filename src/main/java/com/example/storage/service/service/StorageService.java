@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.service.model.Image;
@@ -12,6 +13,7 @@ import com.example.storage.service.service.persistence.FileRepository;
 import com.example.storage.service.service.persistence.ImageRepository;
 import com.example.storage.service.util.ImageUtils;
 
+@Service
 public class StorageService {
 
     public String uploadImageToDatabase(MultipartFile multipartFile) throws IOException {
