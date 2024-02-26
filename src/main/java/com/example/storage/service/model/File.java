@@ -25,6 +25,8 @@ public class File {
     private Long id;
 
     private String name;
+    private String description;
+    private String encryptedFileName;
     private String type;
     private String filePath;
 
