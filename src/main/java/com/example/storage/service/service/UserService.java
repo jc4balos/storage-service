@@ -1,11 +1,12 @@
 package com.example.storage.service.service;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Service;
 
 import com.example.storage.service.dto.UserDto;
 
+@Service
 public interface UserService {
-    public UserDto createUser(UserDto userDto, HttpServletRequest request);
+    public UserDto createUser(UserDto userDto);
 
     // public String deleteUser(Long userId, HttpServletRequest request);
 

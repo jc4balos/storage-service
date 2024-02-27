@@ -3,7 +3,6 @@ package com.example.storage.service.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/create-user")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto, HttpServletRequest request,
+    @PostMapping("/api/user/create-user")
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto,
             BindingResult bindingResult) {
 
         if (!bindingResult.hasErrors()) {
-            return new ResponseEntity<>(userService.createUser(userDto, request), HttpStatus.OK);
+            return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.OK);
 
         } else {
             List<String> errors = bindingResult.getAllErrors().stream()

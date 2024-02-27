@@ -1,9 +1,6 @@
 package com.example.storage.service.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.storage.service.service.FileService;
 
 /**
  * @author Alexandre de Souza Jr.
@@ -11,8 +8,8 @@ import com.example.storage.service.service.FileService;
 @RestController
 public class StorageController {
 
-    @Autowired
-    private FileService fileService;
+    // @Autowired
+    // private FileService fileService;
 
     // @PostMapping(value = "/file/add-file", consumes =
     // MediaType.MULTIPART_FORM_DATA_VALUE)
