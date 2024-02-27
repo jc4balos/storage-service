@@ -20,7 +20,7 @@ public interface FileService extends FolderService {
 
     public String deleteFile(Long fileId); // Moves file to trash
 
-    public FileDto updateFile(Long fileId) // Updates file
+    public FileDto updateFile(Long fileId); // Updates file
 
     public FileDto restoreFile(Long fileId); // Restores file from trash
 

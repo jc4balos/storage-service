@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class FileServiceImpl implements StorageService {
+public class FileServiceImpl {
 
     private final String folderPath = "D:\\Documents\\Repositories\\FileBank\\Storage\\";
 
