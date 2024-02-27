@@ -1,10 +1,10 @@
-package com.example.storage.service.service;
+package com.example.storage.service.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class FileEncryptor {
-    protected String encryptFileName(Long id, String currentFileName) {
+    public String encryptFileName(Long id, String currentFileName) {
         try {
 
             System.out.println("ID: " + id);

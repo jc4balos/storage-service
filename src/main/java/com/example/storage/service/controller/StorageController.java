@@ -1,16 +1,9 @@
 package com.example.storage.service.controller;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.example.storage.service.service.StorageService;
+import com.example.storage.service.service.FileService;
 
 /**
  * @author Alexandre de Souza Jr.
@@ -18,25 +11,28 @@ import com.example.storage.service.service.StorageService;
 @RestController
 public class StorageController {
 
-    @PostMapping("/file/system")
-    public ResponseEntity<?> uploadImageToFIleSystem(String fileName, String description,
-            @RequestParam("file") MultipartFile multipartFile)
-            throws IOException {
-        String file = storageService.uploadImageToFileSystem(fileName, description, multipartFile);
+    @Autowired
+    private FileService fileService;
 
-        return ResponseEntity.status(HttpStatus.OK).body(file);
-    }
+    // @PostMapping(value = "/file/add-file", consumes =
+    // MediaType.MULTIPART_FORM_DATA_VALUE)
+    // public ResponseEntity<?> uploadToFileSystem(@Valid @ModelAttribute FileDto
+    // fileDto,
+    // BindingResult bindingResult) throws IOException {
 
-    // @GetMapping("/file/system/{fileName}")
-    // public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String
-    // fileName) throws IOException {
-    // byte[] image = storageService.downloadImageFromFileSystem(fileName);
+    // if (bindingResult.hasErrors()) {
+    // List<String> errors = bindingResult.getAllErrors().stream()
+    // .map(DefaultMessageSourceResolvable::getDefaultMessage)
+    // .collect(Collectors.toList());
 
-    // return
-    // ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
+    // return ResponseEntity.badRequest().body(errors);
     // }
 
-    @Autowired
-    private StorageService storageService;
+    // String file = storageService.uploadToFileSystem(fileDto.getFileName(),
+    // fileDto.getDescription(),
+    // fileDto.getFile());
+
+    // return ResponseEntity.status(HttpStatus.OK).body(file);
+    // }
 
 }

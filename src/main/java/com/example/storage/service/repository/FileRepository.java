@@ -1,4 +1,4 @@
-package com.example.storage.service.service.persistence;
+package com.example.storage.service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,6 +9,6 @@ import com.example.storage.service.model.File;
  */
 public interface FileRepository extends JpaRepository<File, Long> {
 
-    File findByName(String fileName);
+    File findByFileName(String fileName);
 
 }
