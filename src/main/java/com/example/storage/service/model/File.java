@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,9 +19,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Alexandre de Souza Jr.
- */
 @Entity
 @Table(name = "file")
 @Data
@@ -34,22 +32,21 @@ public class File {
     @Column(nullable = false, name = "fileId")
     private Long fileId;
 
-    @NotBlank(message = "Name is mandatory")
     @Column(nullable = false, length = 100, name = "fileName")
     private String fileName;
 
-    @NotBlank(message = "Description is mandatory")
     @Column(nullable = false, length = 2000, name = "description")
     private String description;
 
-    @Column(nullable = true, name = "encryptedFileName")
-    private String encryptedFileName;
-
-    @Column(nullable = false, name = "type")
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "folderId")
+    private Folder folder;
 
     @Column(nullable = true, name = "filePath")
     private String filePath;
+
+    @Column(nullable = false, name = "fileType")
+    private String fileType;
 
     @CreationTimestamp
     @Column(nullable = false, name = "createdDateTime")
@@ -58,5 +55,12 @@ public class File {
     @UpdateTimestamp
     @Column(nullable = false, name = "updatedDateTime")
     private LocalDateTime updatedDateTime;
+
+    @Column(nullable = false, name = "active")
+    private Boolean active;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+    private User owner;
 
 }
