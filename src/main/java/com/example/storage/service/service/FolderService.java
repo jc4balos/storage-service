@@ -8,7 +8,7 @@ import com.example.storage.service.dto.FolderDto;
 
 public interface FolderService {
 
-    public FolderDto createFolder(String folderName, Long userId, HttpServletRequest request);
+    public FolderDto createFolder(String folderName, Long userId);
 
     public String deleteFolder(Long folderId, Long userId, HttpServletRequest request);
 

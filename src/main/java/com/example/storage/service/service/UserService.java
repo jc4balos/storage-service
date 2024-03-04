@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.example.storage.service.dto.LoginDto;
+import com.example.storage.service.dto.PasswordDto;
 import com.example.storage.service.dto.UserDto;
 
 @Service
@@ -21,9 +22,7 @@ public interface UserService {
     public String activateUser(Long userId);
 
     public Map<String, Object> loginUser(LoginDto loginDto);
-    // // contains {user:UserDto, sessionId:String}
 
-    // public UserDto changePassword(Long userId, String oldPassword, String
-    // newPassword, HttpServletRequest request);
+    public String changePassword(PasswordDto passwordDto);
 
 }

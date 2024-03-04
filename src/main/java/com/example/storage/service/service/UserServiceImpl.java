@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.storage.service.dto.LoginDto;
+import com.example.storage.service.dto.PasswordDto;
 import com.example.storage.service.dto.UserDto;
+import com.example.storage.service.exception.CredentialsInvalidException;
+import com.example.storage.service.exception.UserNameAlreadyExistsException;
 import com.example.storage.service.mapper.UserMapper;
 import com.example.storage.service.model.User;
 import com.example.storage.service.repository.UserRepository;
@@ -25,13 +29,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        // study sessionId to know how to use request variable
-        // if sessionId is ok then execute all below and return userDto
 
-        // User user = new User();
-        user = userMapper.toUser(userDto);
-        userRepository.save(user);
-        return userDto;
+        try {
+            user = userMapper.toUser(userDto);
+            userRepository.save(user);
+            return userDto;
+        } catch (DataIntegrityViolationException e) {
+            throw new UserNameAlreadyExistsException("Username already exist");
+
+        }
 
     }
 
@@ -78,12 +84,24 @@ public class UserServiceImpl implements UserService {
 
         if (user.getPassword().equals(loginDto.getPassword())) {
             Map<String, Object> result = new HashMap<>();
-            result.put("user", userMapper.toUserDto(user));
+            String message = new String("Login successful");
+            result.put("message", message);
             return result;
         } else {
-            Map<String, Object> result = new HashMap<>();
-            result.put("validation", loginDto);
-            return result;
+            throw new CredentialsInvalidException("Invalid username or password");
+        }
+    }
+
+    @Override
+    public String changePassword(PasswordDto passwordDto) {
+        user = userRepository.findById(passwordDto.getUserId()).get();
+
+        if (user.getPassword().equals(passwordDto.getOldPassword())) {
+            user.setPassword(passwordDto.getNewPassword());
+            userRepository.save(user);
+            return "Password changed successfully";
+        } else {
+            throw new CredentialsInvalidException("Invalid old password");
         }
     }
 }
