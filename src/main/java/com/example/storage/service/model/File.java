@@ -38,8 +38,8 @@ public class File {
     @Column(nullable = false, length = 2000, name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "folderId")
+    @ManyToOne(targetEntity = Folder.class)
+    @JoinColumn(nullable = false, name = "folderId")
     private Folder folder;
 
     @Column(nullable = true, name = "filePath")
@@ -60,7 +60,7 @@ public class File {
     private Boolean active;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
+    @JoinColumn(nullable = false, name = "ownerId")
     private User owner;
 
 }

@@ -53,7 +53,7 @@ public class Folder {
     private Boolean active;
 
     @ManyToOne(targetEntity = File.class)
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "ownerId")
     private User owner;
 
 }
