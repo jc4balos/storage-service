@@ -27,38 +27,38 @@ import lombok.NoArgsConstructor;
 public class FolderAccess {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "folderAccessId")
+    @Column(nullable = false, name = "folder_access_id")
     private Long folderAccessId;
 
     @ManyToMany(targetEntity = Folder.class)
-    @JoinColumn(nullable = false, name = "folderId")
+    @JoinColumn(nullable = false, name = "folder_id")
     private List<Folder> folder;
 
     @ManyToOne(targetEntity = AccessLevel.class)
-    @JoinColumn(nullable = false, name = "accessLevelId")
+    @JoinColumn(nullable = false, name = "access_level_id")
     private AccessLevel accessLevel;
 
-    @Column(nullable = false, name = "allowAddFolder")
+    @Column(nullable = false, name = "allow_add_folder")
     private Boolean allowAddFolder;
 
-    @Column(nullable = false, name = "allowModifyFolder")
+    @Column(nullable = false, name = "allow_modify_folder")
     private Boolean allowModifyFolder;
 
-    @Column(nullable = false, name = "allowViewFolder")
+    @Column(nullable = false, name = "allow_view_folder")
     private Boolean allowViewFolder;
 
-    @Column(nullable = false, name = "allowDeleteFolder")
+    @Column(nullable = false, name = "allow_delete_folder")
     private Boolean allowDeleteFolder;
 
-    @Column(nullable = false, name = "allowAddFile")
+    @Column(nullable = false, name = "allow_add_file")
     private Boolean allowAddFile;
 
-    @Column(nullable = false, name = "allowModifyFile")
+    @Column(nullable = false, name = "allow_modify_file")
     private Boolean allowModifyFile;
 
-    @Column(nullable = false, name = "allowDeleteFile")
+    @Column(nullable = false, name = "allow_delete_file")
     private Boolean allowDeleteFile;
 
-    @Column(nullable = false, name = "allowViewFile")
+    @Column(nullable = false, name = "allow_view_file")
     private Boolean allowViewFile;
 }

@@ -28,17 +28,18 @@ public class Logs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, name = "log_id")
     private Long logId;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(nullable = false, name = "userId")
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
     @Column(nullable = false, length = 1000, name = "event")
     private String event;
 
     @CreationTimestamp
-    @Column(nullable = false, name = "timeStamp")
+    @Column(nullable = false, name = "time_stamp")
     private LocalDate timeStamp;
 
 }

@@ -39,28 +39,28 @@ public class File {
     private String description;
 
     @ManyToOne(targetEntity = Folder.class)
-    @JoinColumn(nullable = false, name = "folderId")
+    @JoinColumn(nullable = false, name = "folder_id")
     private Folder folder;
 
-    @Column(nullable = true, name = "filePath")
+    @Column(nullable = true, name = "file_path")
     private String filePath;
 
-    @Column(nullable = false, name = "fileType")
+    @Column(nullable = false, name = "file_type")
     private String fileType;
 
     @CreationTimestamp
-    @Column(nullable = false, name = "createdDateTime")
+    @Column(nullable = false, name = "created_date_time")
     private LocalDateTime createdDateTime;
 
     @UpdateTimestamp
-    @Column(nullable = false, name = "updatedDateTime")
+    @Column(nullable = false, name = "updated_date_time")
     private LocalDateTime updatedDateTime;
 
     @Column(nullable = false, name = "active")
     private Boolean active;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(nullable = false, name = "ownerId")
-    private User owner;
+    @JoinColumn(nullable = false, name = "owner_id")
+    private User user;
 
 }

@@ -22,10 +22,10 @@ public class AccessLevel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "accessLevelId")
+    @Column(nullable = false, name = "access_level_id")
     private Long accessLevelId;
 
-    @Column(nullable = false, length = 100, name = "accessLevelName")
+    @Column(nullable = false, length = 100, name = "access_level_name")
     private String accessLevelName;
 
 }

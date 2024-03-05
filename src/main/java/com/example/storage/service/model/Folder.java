@@ -29,31 +29,31 @@ public class Folder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "folderId")
+    @Column(nullable = false, name = "folder_id")
     private Long folderId;
 
-    @Column(nullable = false, length = 100, name = "folderName")
+    @Column(nullable = false, length = 100, name = "folder_name")
     private String folderName;
 
-    @Column(nullable = false, length = 2000, name = "folderDescription")
+    @Column(nullable = false, length = 2000, name = "folder_description")
     private String folderDescription;
 
-    @Column(nullable = false, name = "folderParentId")
+    @Column(nullable = false, name = "folder_parent_id")
     private Long folderParentId;
 
     @CreationTimestamp
-    @Column(nullable = false, name = "createdDateTime")
+    @Column(nullable = false, name = "created_date_time")
     private LocalDateTime createdDateTime;
 
     @UpdateTimestamp
-    @Column(nullable = false, name = "updatedDateTime")
+    @Column(nullable = false, name = "updated_date_time")
     private LocalDateTime updatedDateTime;
 
     @Column(nullable = false, name = "active")
     private Boolean active;
 
     @ManyToOne(targetEntity = File.class)
-    @JoinColumn(name = "ownerId")
-    private User owner;
+    @JoinColumn(nullable = false, name = "owner_id")
+    private User user;
 
 }
