@@ -26,13 +26,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private User user;
 
     @Override
     public UserDto createUser(UserDto userDto) {
 
         try {
-            user = userMapper.toUser(userDto);
+            User user = userMapper.toUser(userDto);
             userRepository.save(user);
             return userDto;
         } catch (DataIntegrityViolationException e) {
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto modifyUser(Long userId, UserDto userDto) {
-        user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).get();
         user.setFirstName(userDto.getFirstName());
         user.setMiddleName(userDto.getMiddleName());
         user.setLastName(userDto.getLastName());
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deactivateUser(Long userId) {
-        user = userRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         user.setActive(false);
         String userName = user.getUserName();
@@ -73,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String activateUser(Long userId) {
-        user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).get();
         user.setActive(true);
         String userName = user.getUserName();
         userRepository.save(user);
@@ -82,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> loginUser(LoginDto loginDto) {
-        user = userRepository.findByUserName(loginDto.getUserName());
+        User user = userRepository.findByUserName(loginDto.getUserName());
 
         if (user != null) {
             if (Objects.equals(user.getPassword(), loginDto.getPassword())) {
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String changePassword(PasswordDto passwordDto) {
-        user = userRepository.findById(passwordDto.getUserId()).get();
+        User user = userRepository.findById(passwordDto.getUserId()).get();
 
         if (user.getPassword().equals(passwordDto.getOldPassword())) {
             user.setPassword(passwordDto.getNewPassword());

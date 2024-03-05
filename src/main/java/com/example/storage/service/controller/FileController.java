@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,9 +22,10 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
     private ApplicationExceptionHandler applicationExceptionHandler;
 
-    @PostMapping(value = "/api/v1/file/create-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/api/v1/file/create-file")
     public ResponseEntity<?> uploadToFileSystem(@Valid @ModelAttribute FileDto fileDto,
             BindingResult bindingResult) throws IOException {
 

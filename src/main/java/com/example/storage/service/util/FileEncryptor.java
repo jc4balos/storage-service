@@ -7,7 +7,6 @@ public class FileEncryptor {
     public String encryptFileName(Long id, String currentFileName) {
         try {
 
-            System.out.println("ID: " + id);
             // Combine filename and ID (if provided) into a single string
             String combinedString = currentFileName;
             if (id != 0) { // Check for non-zero ID to avoid unnecessary string concatenation

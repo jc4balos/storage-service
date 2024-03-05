@@ -19,9 +19,10 @@ public class FileDto {
     @NotNull(message = "File is required")
     private MultipartFile multipartFile;
 
-    @NotNull
+    @NotNull(message = "Folder id is required")
     private Long folderId;
 
-    @NotNull
+    @NotNull(message = "Owner id is required")
     private Long ownerId;
+
 }

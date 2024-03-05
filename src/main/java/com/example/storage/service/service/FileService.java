@@ -1,8 +1,11 @@
 package com.example.storage.service.service;
 
+import org.springframework.stereotype.Service;
+
 import com.example.storage.service.dto.FileDto;
 
-public interface FileService extends FolderService {
+@Service
+public interface FileService {
 
     public FileDto createFile(FileDto fileDto); // Uploads file
     // Add folder on this function
