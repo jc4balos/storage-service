@@ -34,7 +34,7 @@ public class FolderAccess {
     @JoinColumn(nullable = false, name = "folderId")
     private List<Folder> folder;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = AccessLevel.class)
     @JoinColumn(nullable = false, name = "accessLevelId")
     private AccessLevel accessLevel;
 
