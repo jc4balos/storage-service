@@ -62,7 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deactivateUser(Long userId) {
-        user = userRepository.findById(userId).get();
+        user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         user.setActive(false);
         String userName = user.getUserName();
         userRepository.save(user);

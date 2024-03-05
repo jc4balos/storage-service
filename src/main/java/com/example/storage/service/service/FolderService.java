@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FolderService {
 
-    // public FolderDto createFolder(String folderName, Long userId);
+    // public FolderDto createFolder();
 
     // public String deleteFolder(Long folderId, Long userId, HttpServletRequest
     // request);

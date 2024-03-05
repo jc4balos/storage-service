@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.storage.service.dto.LoginDto;
 import com.example.storage.service.dto.PasswordDto;
@@ -33,7 +34,7 @@ public class UserController {
     @Autowired
     private ApplicationExceptionHandler applicationExceptionHandler;
 
-    @PostMapping("/api/user/create-user")
+    @PostMapping("/api/v1/user/create-user")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto,
             BindingResult bindingResult) {
 
@@ -55,12 +56,12 @@ public class UserController {
 
     }
 
-    @GetMapping("/api/user/all-users")
+    @GetMapping("/api/v1/user/all-users")
     public ResponseEntity<?> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @PatchMapping("/api/user/modify-user")
+    @PatchMapping("/api/v1/user/modify-user")
     public ResponseEntity<?> modifyUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
 
         if (!bindingResult.hasErrors()) {
@@ -70,7 +71,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/api/user/login")
+    @GetMapping("/api/v1/user/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginDto loginDto) {
 
         try {
@@ -80,7 +81,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/api/user/change-password")
+    @PatchMapping("/api/v1/user/change-password")
     public ResponseEntity<?> changePassword(@RequestBody PasswordDto passwordDto) {
 
         try {
@@ -92,6 +93,16 @@ public class UserController {
             return applicationExceptionHandler.handleCustomException(e);
         }
 
+    }
+
+    @PatchMapping("/api/v1/user/deactivate-user")
+    public ResponseEntity<?> deactivateUser(@RequestParam Long userId) {
+        return new ResponseEntity<>(userService.deactivateUser(userId), HttpStatus.OK);
+    }
+
+    @PatchMapping("/api/v1/user/activate-user")
+    public ResponseEntity<?> activateUser(@RequestParam Long userId) {
+        return new ResponseEntity<>(userService.activateUser(userId), HttpStatus.OK);
     }
 
 }
