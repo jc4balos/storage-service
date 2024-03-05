@@ -42,7 +42,7 @@ public class File {
     @JoinColumn(nullable = false, name = "folder_id")
     private Folder folder;
 
-    @Column(nullable = true, name = "file_path")
+    @Column(nullable = false, name = "file_path")
     private String filePath;
 
     @Column(nullable = false, name = "file_type")

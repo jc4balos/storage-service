@@ -1,18 +1,14 @@
 package com.example.storage.service.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +26,9 @@ public class FolderAccess {
     @Column(nullable = false, name = "folder_access_id")
     private Long folderAccessId;
 
-    @ManyToMany(targetEntity = Folder.class)
+    @ManyToOne(targetEntity = Folder.class)
     @JoinColumn(nullable = false, name = "folder_id")
-    private List<Folder> folder;
+    private Folder folder;
 
     @ManyToOne(targetEntity = AccessLevel.class)
     @JoinColumn(nullable = false, name = "access_level_id")
