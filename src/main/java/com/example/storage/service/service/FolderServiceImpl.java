@@ -37,4 +37,8 @@ public class FolderServiceImpl implements FolderService {
         return folderDto;
     }
 
+    // @Override
+    // public Map<String, Object> getAllFiles(Long folderId, Long userId) {
+
+    // }
 }

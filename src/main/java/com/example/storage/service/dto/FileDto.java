@@ -1,6 +1,5 @@
 package com.example.storage.service.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,14 +10,18 @@ import lombok.Data;
 @Data
 public class FileDto {
 
-    @NotBlank(message = "File name is mandatory")
-    @Size(max = 100, message = "File name is too long")
+    @NotNull(message = "File name is required")
     private String fileName;
 
-    @NotBlank(message = "Description is mandatory")
-    @Size(max = 2000, message = "Description is too long")
+    @Size(max = 2000, message = "File description is too long")
     private String description;
 
-    @NotNull(message = "File is mandatory")
-    private MultipartFile file;
+    @NotNull(message = "File is required")
+    private MultipartFile multipartFile;
+
+    @NotNull
+    private Long folderId;
+
+    @NotNull
+    private Long ownerId;
 }

@@ -24,6 +24,7 @@ public class FolderController {
     @Autowired
     private ApplicationExceptionHandler applicationExceptionHandler;
 
+    // revise this hide user id dont user request param
     @PostMapping("/api/v1/folder/create-folder")
     public ResponseEntity<?> createFolder(@RequestParam Long userId, @Valid @RequestBody FolderDto folderDto,
             BindingResult bindingResult) {
