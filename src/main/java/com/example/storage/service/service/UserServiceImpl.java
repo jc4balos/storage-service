@@ -3,6 +3,7 @@ package com.example.storage.service.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -83,13 +84,17 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> loginUser(LoginDto loginDto) {
         user = userRepository.findByUserName(loginDto.getUserName());
 
-        if (user.getPassword().equals(loginDto.getPassword())) {
-            Map<String, Object> result = new HashMap<>();
-            String message = new String("Login successful");
-            result.put("message", message);
-            return result;
+        if (user != null) {
+            if (Objects.equals(user.getPassword(), loginDto.getPassword())) {
+                Map<String, Object> result = new HashMap<>();
+                String message = "Login successful";
+                result.put("message", message);
+                return result;
+            } else {
+                throw new CredentialsInvalidException("Invalid password");
+            }
         } else {
-            throw new CredentialsInvalidException("Invalid username or password");
+            throw new CredentialsInvalidException("Invalid username");
         }
     }
 
