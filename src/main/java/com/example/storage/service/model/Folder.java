@@ -35,7 +35,7 @@ public class Folder {
     @Column(nullable = false, length = 100, name = "folder_name")
     private String folderName;
 
-    @Column(nullable = false, length = 2000, name = "folder_description")
+    @Column(nullable = true, length = 2000, name = "folder_description")
     private String folderDescription;
 
     @Column(nullable = false, name = "folder_parent_id")
@@ -52,8 +52,8 @@ public class Folder {
     @Column(nullable = false, name = "active")
     private Boolean active;
 
-    @ManyToOne(targetEntity = File.class)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "owner_id")
-    private User user;
+    private User owner;
 
 }

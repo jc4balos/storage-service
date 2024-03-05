@@ -2,10 +2,12 @@ package com.example.storage.service.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.storage.service.dto.FolderDto;
+
 @Service
 public interface FolderService {
 
-    // public FolderDto createFolder();
+    public FolderDto createFolder(FolderDto folderDto, Long userId);
 
     // public String deleteFolder(Long folderId, Long userId, HttpServletRequest
     // request);

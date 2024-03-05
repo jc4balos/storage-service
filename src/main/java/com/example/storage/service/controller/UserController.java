@@ -1,12 +1,8 @@
 package com.example.storage.service.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,10 +40,8 @@ public class UserController {
                 return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.OK);
 
             } else {
-                List<String> errors = bindingResult.getAllErrors().stream()
-                        .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                        .collect(Collectors.toList());
-                return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+                return applicationExceptionHandler.handleBadRequest(bindingResult);
+
             }
         } catch (UserNameAlreadyExistsException e) {
             return applicationExceptionHandler.handleCustomException(e);

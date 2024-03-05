@@ -61,6 +61,6 @@ public class File {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, name = "owner_id")
-    private User user;
+    private User owner;
 
 }
