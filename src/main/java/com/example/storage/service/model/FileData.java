@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class File {
+public class FileData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

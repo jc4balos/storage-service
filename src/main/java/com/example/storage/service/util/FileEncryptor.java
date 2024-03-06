@@ -2,16 +2,18 @@ package com.example.storage.service.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 public class FileEncryptor {
-    public String encryptFileName(Long id, String currentFileName) {
+    public String encryptFileName(String currentFileName) {
         try {
+
+            String salt = generateSalt();
 
             // Combine filename and ID (if provided) into a single string
             String combinedString = currentFileName;
-            if (id != 0) { // Check for non-zero ID to avoid unnecessary string concatenation
-                combinedString += "-" + id;
-            }
+            combinedString += "-" + salt;
 
             // Create a message digest object with a secure algorithm
             MessageDigest hasher = MessageDigest.getInstance("SHA-256"); // Use SHA-256 for stronger security
@@ -40,6 +42,13 @@ public class FileEncryptor {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    private String generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
     }
 
 }

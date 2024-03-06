@@ -1,6 +1,7 @@
 package com.example.storage.service.controller;
 
-import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storage.service.dto.FileDto;
+import com.example.storage.service.dto.FileDtoView;
 import com.example.storage.service.exception.ApplicationExceptionHandler;
 import com.example.storage.service.service.FileService;
 
@@ -27,12 +29,22 @@ public class FileController {
 
     @PostMapping("/api/v1/file/create-file")
     public ResponseEntity<?> uploadToFileSystem(@Valid @ModelAttribute FileDto fileDto,
-            BindingResult bindingResult) throws IOException {
+            BindingResult bindingResult) {
 
-        if (!bindingResult.hasErrors()) {
-            return new ResponseEntity<>(fileService.createFile(fileDto), HttpStatus.OK);
-        } else {
-            return applicationExceptionHandler.handleBadRequest(bindingResult);
+        try {
+            if (!bindingResult.hasErrors()) {
+                CompletableFuture<FileDtoView> response = fileService.createFile(fileDto);
+                if (response.isDone()) {
+                    return new ResponseEntity<>(response.get(), HttpStatus.OK);
+                }
+
+                // if unsuccessfull return something nakalimutan ko lintek
+                return new ResponseEntity<>("File upload failed", HttpStatus.BAD_REQUEST);
+            } else {
+                return applicationExceptionHandler.handleBadRequest(bindingResult);
+            }
+        } catch (IllegalArgumentException | InterruptedException | ExecutionException e) {
+            return applicationExceptionHandler.handleCustomException(e);
         }
 
     }
