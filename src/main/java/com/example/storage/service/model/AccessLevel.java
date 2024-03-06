@@ -25,7 +25,7 @@ public class AccessLevel {
     @Column(nullable = false, name = "access_level_id")
     private Long accessLevelId;
 
-    @Column(nullable = false, length = 100, name = "access_level_name")
+    @Column(nullable = false, unique = true, length = 100, name = "access_level_name")
     private String accessLevelName;
 
 }
