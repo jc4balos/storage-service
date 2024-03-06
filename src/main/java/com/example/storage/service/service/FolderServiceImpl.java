@@ -38,7 +38,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     // @Override
-    // public Map<String, Object> getAllFiles(Long folderId, Long userId) {
+    // public List<?> getAllFiles(Long folderId, Long userId) {
 
     // }
 }
