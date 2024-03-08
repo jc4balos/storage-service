@@ -12,6 +12,7 @@ import com.example.storage.service.model.Folder;
 import com.example.storage.service.model.User;
 import com.example.storage.service.repository.AccessLevelRepository;
 import com.example.storage.service.repository.FolderRepository;
+import com.example.storage.service.repository.FoldersAndFilesRepository;
 import com.example.storage.service.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class FolderServiceImpl implements FolderService {
 
     private final FolderRepository folderRepository;
+    private final FoldersAndFilesRepository foldersAndFilesRepository;
     private final UserRepository userRepository;
     private final AccessLevelRepository accessLevelRepository;
 
@@ -33,8 +35,7 @@ public class FolderServiceImpl implements FolderService {
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         Folder folder = new Folder();
         Long accessLevelId = owner.getAccessLevelId();
-        // get all accesslevel ids then loop it on the
-        // folderAccessServiceImpl.addFolderAccess(folderId, accessLevelId);
+
         List<Long> accessLevelIds = accessLevelRepository.findAll().stream().map(AccessLevel::getAccessLevelId)
                 .collect(Collectors.toList());
 
@@ -60,13 +61,12 @@ public class FolderServiceImpl implements FolderService {
     }
 
     // Access all files in the parentFolderId where view is enabled for current user
-
     @Override
     public List<?> getAllFiles(Long folderId, Long userId) {
         Long userAccessLevelId = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist")).getAccessLevelId();
 
-        List<?> response = folderRepository.findByFolderParentIdAndAccessLevel(userAccessLevelId, folderId);
-        return response;
+        List<?> folders = foldersAndFilesRepository.findByFolderParentIdAndAccessLevel(userAccessLevelId, folderId);
+        return folders;
     }
 }
