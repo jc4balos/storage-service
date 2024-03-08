@@ -8,17 +8,17 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storage.service.dto.FileDto;
 import com.example.storage.service.dto.FileDtoView;
 import com.example.storage.service.exception.ApplicationExceptionHandler;
 import com.example.storage.service.service.FileService;
 
-@RestController
+@Controller
 public class FileController {
 
     @Autowired

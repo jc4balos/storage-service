@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userMapper.toUser(userDto);
             userRepository.save(user);
+            userDto.setUserId(user.getUserId());
             return userDto;
         } catch (DataIntegrityViolationException e) {
             throw new UserNameAlreadyExistsException("Username already exist");

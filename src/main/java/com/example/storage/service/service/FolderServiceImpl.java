@@ -1,10 +1,16 @@
 package com.example.storage.service.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.storage.service.dto.FolderDto;
+import com.example.storage.service.model.AccessLevel;
 import com.example.storage.service.model.Folder;
 import com.example.storage.service.model.User;
+import com.example.storage.service.repository.AccessLevelRepository;
 import com.example.storage.service.repository.FolderRepository;
 import com.example.storage.service.repository.UserRepository;
 
@@ -16,12 +22,21 @@ public class FolderServiceImpl implements FolderService {
 
     private final FolderRepository folderRepository;
     private final UserRepository userRepository;
+    private final AccessLevelRepository accessLevelRepository;
+
+    @Autowired
+    private FolderAccessServiceImpl folderAccessServiceImpl;
 
     @Override
     public FolderDto createFolder(FolderDto folderDto, Long userId) {
         User owner = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User with id " + userId + " does not exist"));
+                .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         Folder folder = new Folder();
+        Long accessLevelId = owner.getAccessLevelId();
+        // get all accesslevel ids then loop it on the
+        // folderAccessServiceImpl.addFolderAccess(folderId, accessLevelId);
+        List<Long> accessLevelIds = accessLevelRepository.findAll().stream().map(AccessLevel::getAccessLevelId)
+                .collect(Collectors.toList());
 
         folder.setFolderName(folderDto.getFolderName());
         folder.setFolderDescription(folderDto.getFolderDescription());
@@ -34,11 +49,24 @@ public class FolderServiceImpl implements FolderService {
         }
 
         folderRepository.save(folder);
+
+        Long folderId = folder.getFolderId();
+
+        for (Long accessLevelIdItem : accessLevelIds) {
+            folderAccessServiceImpl.addFolderAccess(folderId, accessLevelIdItem);
+        }
+
         return folderDto;
     }
 
-    // @Override
-    // public List<?> getAllFiles(Long folderId, Long userId) {
+    // Access all files in the parentFolderId where view is enabled for current user
 
-    // }
+    @Override
+    public List<?> getAllFiles(Long folderId, Long userId) {
+        Long userAccessLevelId = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User does not exist")).getAccessLevelId();
+
+        List<?> response = folderRepository.findByFolderParentIdAndAccessLevel(userAccessLevelId, folderId);
+        return response;
+    }
 }
